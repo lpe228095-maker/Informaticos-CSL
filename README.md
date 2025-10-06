@@ -232,7 +232,7 @@ If you wish, you could follow conventions like **Conventional Commits** (`feat:`
 Team names and roles here (replace with your team):
 
 - **Backend** — Luis Jeréz
-- **Lastname** — Valesca Ventura
+- **Backend** — Valesca Ventura
 - **Frontend** — Kaoru Aizawa
 - **Frontend** — César soto
 - **Backend** — Vivian Monroy
