@@ -1,8 +1,17 @@
 # Informáticos CSL
 
-**Brief Description:** Explain in 1–2 lines what this project does (e.g., educational site, web app, query APIs, etc.).
+[👉 Probar la app (demo)](http://ec2-3-144-24-55.us-east-2.compute.amazonaws.com/)
 
 ---
+
+## Basic Usage
+
+- Open the *frontend* in your browser.  
+  - Local: http://localhost:5173
+  - *Demo:* http://ec2-3-144-24-55.us-east-2.compute.amazonaws.com/     
+- Type a query in the *chat*.  
+- Review *evidence/citations* attached to each result (when applicable).  
+- To ingest new documents, use the ingestion endpoint or the scripts in scripts/.                                     
 
 ## 📋 Table of Contents
 
