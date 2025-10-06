@@ -1,60 +1,60 @@
 # Informáticos CSL
 
-**Descripción breve:** Explica en 1–2 líneas qué hace este proyecto (por ejemplo: sitio educativo, app web, APIs de consulta, etc.).
+**Brief Description:** Explain in 1–2 lines what this project does (e.g., educational site, web app, query APIs, etc.).
 
 ---
 
-## 📋 Tabla de contenido
+## 📋 Table of Contents
 
-- [Arquitectura](#arquitectura)
-- [Estructura del proyecto](#estructura-del-proyecto)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
 - [Stack](#stack)
-- [Requisitos](#requisitos)
-- [Variables de entorno](#variables-de-entorno)
-- [Cómo correrlo en local](#cómo-correrlo-en-local)
-- [Probarlo en la nube](#probarlo-en-la-nube)
+- [Requirements](#requirements)
+- [Environment Variables](#environment-variables)
+- [How to Run Locally](#how-to-run-locally)
+- [Deploy to the Cloud](#deploy-to-the-cloud)
 - [Endpoints](#endpoints)
-- [Datos de prueba](#datos-de-prueba)
-- [Guía de contribución](#guía-de-contribución)
-- [Créditos](#créditos)
-- [Licencia](#licencia)
+- [Test Data](#test-data)
+- [Contribution Guide](#contribution-guide)
+- [Credits](#credits)
+- [License](#license)
 
 ---
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
-Describe si tu proyecto funciona solo como frontend estático o si tiene un backend.
+Describe if your project works only as a static frontend or if it has a backend.
 
-### Modo solo frontend
+### Frontend-only mode
 ```
-Frontend estático ──▶ Navegador
-```
-
-### Modo full‑stack (opcional)
-```
-Frontend + llamadas a API (/api/*)
-Backend ──▶ Base de datos / almacenamiento
+Static Frontend ──▶ Browser
 ```
 
-Explica brevemente cuál de los modos aplica en tu caso.
+### Full-stack mode (optional)
+```
+Frontend + API calls (/api/*)
+Backend ──▶ Database / Storage
+```
+
+Briefly explain which mode applies in your case.
 
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Project Structure
 
 ```
 Informaticos-CSL/
-├── frontend/                    # HTML, CSS, JS o framework (Vite, React, etc.)
+├── frontend/                    # HTML, CSS, JS or framework (Vite, React, etc.)
 │   ├── index.html
 │   ├── assets/
 │   └── src/
-├── backend/                     # (opcional) API en Node, Python, etc.
-│   ├── package.json            # si es Node
-│   ├── app.js / main.py
-│   └── Dockerfile              # opcional si lo containerizas
-├── docs/                        # documentación, imágenes, guías
-├── scripts/                     # utilerías, semillas, ingestión de datos
-├── .env.example                 # ejemplo de variables de entorno
+├── backend/                     # (optional) API in Node, etc.
+│   ├── package.json            # if using Node
+│   ├── app.js / main.js
+│   └── Dockerfile              # optional if containerizing
+├── docs/                        # documentation, images, guides
+├── scripts/                     # utilities, seeds, data ingestion
+├── .env.example                 # example environment variables
 └── README.md
 ```
 
@@ -62,194 +62,178 @@ Informaticos-CSL/
 
 ## 🛠️ Stack
 
-- **Frontend:** HTML / CSS / JavaScript (o Vite / React / cualquier framework, si aplica)
-- **Backend (opcional):** Node.js + Express  (u otro)
-- **Base de datos (opcional):** SQLite / PostgreSQL / MongoDB / Redis u otra
-- **Despliegue sugerido:**
-  - Frontend: GitHub Pages, Vercel o Netlify
-  - Backend: Render, Railway, Fly.io u otro proveedor
-- **Contenerización (opcional):** Docker / Docker Compose (si incluyes Dockerfile / docker-compose.yml)
+- **Frontend:** HTML / CSS / JavaScript (or Vite / React / any framework, if applicable)
+- **Backend (optional):** Node.js + Express (or other)
+- **Database (optional):** SQLite / PostgreSQL / MongoDB / Redis or other
+- **Suggested Deployment:**
+  - Frontend: GitHub Pages, Vercel or Netlify
+  - Backend: Render, Railway, Fly.io or other provider
+- **Containerization (optional):** Docker / Docker Compose (if including Dockerfile / docker-compose.yml)
 
 ---
 
-## ⚙️ Requisitos
+## ⚙️ Requirements
 
-### Solo frontend
-- Un navegador moderno es suficiente
+### Frontend only
+- A modern browser is sufficient
 
-### Full‑stack
-- Node.js versión 18+ (si usas backend en Node)
-- Python 3.10+ (si usas backend )
-- Git para clonar el proyecto
-- Docker (opcional, si deseas usar contenedores)
+### Full-stack
+- Node.js version 18+ (if using Node backend)
+- Git to clone the project
+- Docker (optional, if you want to use containers)
 
 ---
 
-## 🔐 Variables de entorno
+## 🔐 Environment Variables
 
-Crea un archivo `.env` (o dentro de `backend/` si tu estructura lo requiere). Aquí un ejemplo:
+Create a `.env` file (or inside `backend/` if your structure requires it). Here's an example:
 
 ```env
 NODE_ENV=development
 PORT=3000
 
-# Si usas base de datos:
-DATABASE_URL=postgres://usuario:contraseña@host:puerto/nombre_de_bd
+# If using database:
+DATABASE_URL=postgres://user:password@host:port/database_name
 
-# Si usas APIs externas:
-API_KEY_EXTERNA=tu_api_key
+# If using external APIs:
+EXTERNAL_API_KEY=your_api_key
 ```
 
-**Importante:** Asegúrate de mantener un archivo `.env.example` en el repositorio que liste las claves necesarias pero sin valores sensibles.
+**Important:** Make sure to keep a `.env.example` file in the repository that lists the necessary keys but without sensitive values.
 
 ---
 
-## 🚀 Cómo correrlo en local
+## 🚀 How to Run Locally
 
-### Opción A — Solo frontend (la más rápida)
+### Option A — Frontend only (fastest)
 
-1. **Clona el repositorio:**
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/tu_usuario/Informaticos-CSL.git
+   git clone https://github.com/your_user/Informaticos-CSL.git
    cd Informaticos-CSL/frontend
    ```
 
-2. **Sirve los archivos estáticos:**
+2. **Serve static files:**
    
-   - **Con VS Code:** usa la extensión Live Server → clic derecho → Open with Live Server
+   - **With VS Code:** use the Live Server extension → right click → Open with Live Server
    
-   - **Con Python:**
-     ```bash
-     python -m http.server 5173
-     ```
+   - **With a simple server:** use any local HTTP server of your choice
 
-3. **Abre en tu navegador:** `http://localhost:5173` (o el puerto que uses)
+3. **Open in your browser:** `http://localhost:5173` (or the port you use)
 
 ---
 
-### Opción B — Con backend (si existe carpeta `backend/`)
+### Option B — With backend (if `backend/` folder exists)
 
-1. **En la terminal:**
+1. **In the terminal:**
    ```bash
    cd Informaticos-CSL/backend
-   cp ../.env.example .env  # o crea tu propio .env
-   npm install              # si es Node (o usa pip/virtualenv si es Python)
-   npm run dev              # o npm start, o comando equivalente
+   cp ../.env.example .env  # or create your own .env
+   npm install
+   npm run dev              # or npm start, or equivalent command
    ```
 
-2. **Verifica que el backend está corriendo:**
+2. **Verify the backend is running:**
    ```bash
    http://localhost:3000/health
    ```
 
-3. **En otra terminal** (o integrando en tu servidor backend), sirve el frontend de la forma descrita en la **Opción A** o configúralo para que el backend entregue los archivos estáticos.
+3. **In another terminal** (or integrating into your backend server), serve the frontend as described in **Option A** or configure it so the backend serves the static files.
 
 ---
 
-### Opción C — Docker / Docker Compose (si aplicaste contenedores)
+### Option C — Docker / Docker Compose (if you applied containers)
 
-1. **En la raíz del proyecto:**
+1. **In the project root:**
    ```bash
    docker compose up -d
    ```
 
-2. **Verifica que todo esté funcionando:**
-   - Frontend en `http://localhost:5173` (o el puerto que hayas mapeado)
-   - Backend en `http://localhost:3000/health` (o el puerto que corresponda)
+2. **Verify everything is working:**
+   - Frontend at `http://localhost:5173` (or the port you mapped)
+   - Backend at `http://localhost:3000/health` (or corresponding port)
 
-3. **Para detener:**
+3. **To stop:**
    ```bash
    docker compose down
    ```
 
 ---
 
-## ☁️ Probarlo en la nube
+## ☁️ Deploy to the Cloud
 
 ### Frontend
 
-- **GitHub Pages:** sube la carpeta `frontend/` a la rama `main`. En los Settings de tu repo → Pages, selecciona desplegar `frontend/`
+- **GitHub Pages:** upload the `frontend/` folder to the `main` branch. In your repo Settings → Pages, select to deploy `frontend/`
 
-- **Vercel / Netlify:** importa el repo. Como framework elige "Other" (o el preset que corresponda). Especifica la carpeta de salida (`frontend` o `frontend/dist`)
+- **Vercel / Netlify:** import the repo. As framework choose "Other" (or the corresponding preset). Specify the output folder (`frontend` or `frontend/dist`)
 
-### Backend (si aplica)
+### Backend (if applicable)
 
-1. Elige un proveedor como **Render**, **Railway** o **Fly.io**
+1. Choose a provider like **Render**, **Railway** or **Fly.io**
 
-2. Importa el repositorio (o apunta al `backend/` con un Dockerfile)
+2. Import the repository (or point to `backend/` with a Dockerfile)
 
-3. Configura las variables de entorno (`PORT`, `DATABASE_URL`, etc.)
+3. Configure environment variables (`PORT`, `DATABASE_URL`, etc.)
 
-4. Despliega y obtén la URL pública del backend
+4. Deploy and get the public backend URL
 
-5. En el frontend, configura las llamadas a la API para que apunten a esa URL (puedes usar una variable de entorno del frontend como `VITE_API_URL`, `REACT_APP_API_URL`, etc.)
+5. In the frontend, configure API calls to point to that URL (you can use a frontend environment variable like `VITE_API_URL`, `REACT_APP_API_URL`, etc.)
 
 ---
 
 ## 🌐 Endpoints
 
-Aquí un esquema genérico — reemplaza con los tuyos:
+Here's a generic schema — replace with yours:
 
-| Método | Endpoint | Descripción |
+| Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/health` | Verifica que el servicio esté vivo |
-| `GET` | `/api/items` | Lista de recursos |
-| `POST` | `/api/items` | Crear un nuevo recurso |
-| `GET` | `/api/items/:id` | Detalle de recurso |
-| `PUT` | `/api/items/:id` | Actualizar un recurso |
-| `DELETE` | `/api/items/:id` | Eliminar recurso |
+| `GET` | `/health` | Check if service is alive |
+| `GET` | `/api/items` | List of resources |
+| `POST` | `/api/items` | Create a new resource |
+| `GET` | `/api/items/:id` | Resource detail |
+| `PUT` | `/api/items/:id` | Update a resource |
+| `DELETE` | `/api/items/:id` | Delete resource |
 
-### Ejemplo de curl:
+### curl example:
 ```bash
 curl http://localhost:3000/api/items
 ```
 
 ---
 
-## 🗂️ Datos de prueba
+## 🗂️ Test Data
 
-- Si usas backend, incluye semillas o fixtures en `backend/seed/` o similar
-- En el frontend, coloca recursos de prueba (imágenes, JSON, etc.) en `frontend/assets/`
-- Documenta en `docs/` cualquier dataset o instrucción de uso
+- If using backend, include seeds or fixtures in `backend/seed/` or similar
+- In the frontend, place test resources (images, JSON, etc.) in `frontend/assets/`
+- Document in `docs/` any dataset or usage instructions
 
 ---
 
-## 🤝 Guía de contribución
+## 🤝 Contribution Guide
 
-1. **Crea una rama desde `main`:**
+1. **Create a branch from `main`:**
    ```bash
-   git checkout -b feat/mi-mejora
+   git checkout -b feat/my-improvement
    ```
 
-2. **Aplica formateo/lint** si el proyecto lo usa (Prettier, ESLint, etc.)
+2. **Apply formatting/lint** if the project uses it (Prettier, ESLint, etc.)
 
-3. **Haz commit limpiamente** con mensajes claros (por ejemplo: `feat: agregar página de login`)
+3. **Commit cleanly** with clear messages (e.g., `feat: add login page`)
 
-4. **Abre un Pull Request** contra `main` con una explicación corta de los cambios
+4. **Open a Pull Request** against `main` with a brief explanation of the changes
 
-Si deseas, podrías seguir convenciones como **Conventional Commits** (`feat:`, `fix:`, `docs:`, etc.)
-
----
-
-## 👥 Créditos
-
-Aquí los nombres y roles (reemplaza con los de tu equipo):
-
-- **Nombre Apellido** — Frontend
-- **Nombre Apellido** — Backend
-- **Nombre Apellido** — Diseño / UX
-- **Nombre Apellido** — Documentación
+If you wish, you could follow conventions like **Conventional Commits** (`feat:`, `fix:`, `docs:`, etc.)
 
 ---
 
-## 📄 Licencia
+## 👥 Credits
 
-*Especifica aquí la licencia de tu proyecto (MIT, Apache, GPL, etc.)*
+Team names and roles here (replace with your team):
 
-Nombre Apellido — frontend
-
-Nombre Apellido — backend
-
-Nombre Apellido — diseño / UX
-
-Nombre Apellido — documentación
+- **Backend** — Luis Jeréz
+- **Lastname** — Valesca Ventura
+- **Frontend** — Kaoru Aizawa
+- **Frontend** — César soto
+- **Backend** — Vivian Monroy
+---
