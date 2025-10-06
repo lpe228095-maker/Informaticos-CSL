@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Natural Alert - Sistema Nacional de Alertas</title>
+
+    <!-- Fuentes y dependencias -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@300;400;600;700&family=Orbitron:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <!-- Estilos unificados -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <link rel="icon" href="images/nubi-icon.png">
+</head>
+
+<body>
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">🌿</div>
+        <h2>Natural Alert</h2>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+        <p>Iniciando sistema de monitoreo...</p>
+    </div>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div id="main-content">
+    <!-- Alert Banner -->
+    <div class="alert-banner hidden" id="alertBanner">
+        <span id="alertMessage"></span>
+        <button class="close-alert" onclick="closeAlert()">×</button>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="images/nasa.jpeg" alt="NASA" class="logo-nasa"/>
+                <h1>Natural Alert</h1>
+                <img src="images/intecap.jpeg" alt="INTECAP" class="logo-intecap"/>
+            </div>
+
+            <!-- Menú hamburguesa para móviles -->
+            <button class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-section" id="nav-section">
+                <nav aria-label="Navegación principal">
+                    <ul class="nav-menu">
+                        <li><a href="#inicio" class="nav-link active"><i class="fas fa-home"></i> Inicio</a></li>
+
+                        <li class="dropdown">
+                            <a href="#aprende" class="nav-link"><i class="fas fa-book"></i> Aprende <i class="fas fa-chevron-down"></i></a>
+                            <div class="dropdown-menu">
+                                <a href="#prevencion-inundaciones"><i class="fas fa-water"></i> Prevención de Inundaciones</a>
+                                <a href="#protocolos-volcanicos"><i class="fas fa-mountain"></i> Protocolos Volcánicos</a>
+                                <a href="#preparacion-huracanes"><i class="fas fa-hurricane"></i> Preparación para Huracanes</a>
+                            </div>
+                        </li>
+
+                        <li><a href="#mapa" class="nav-link"><i class="fas fa-map"></i> Mapa</a></li>
+                        <li><a href="#alertas" class="nav-link"><i class="fas fa-bell"></i> Alertas</a></li>
+                        <li><a href="#desafios" class="nav-link"><i class="fas fa-rocket"></i> Misiones</a></li>
+                        <li><a href="#admin" class="nav-link"><i class="fas fa-cog"></i> Admin</a></li>
+                    </ul>
+                </nav>
+
+                <div class="weather-display">
+                    <i class="fas fa-cloud-sun"></i>
+                    <span id="weather-text">Cargando clima...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- HERO SECTION -->
+        <section id="inicio" class="hero-section">
+            <div class="hero-content">
+                <h2>Monitoreando los desastres naturales desde el espacio</h2>
+                <p class="hero-description">
+                    Natural Alert es una plataforma de monitoreo satelital que utiliza datos de la NASA
+                    para analizar y prever desastres naturales en Guatemala. Nuestra misión es proteger
+                    comunidades mediante tecnología avanzada y datos en tiempo real.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-icon">🌋</div>
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Volcanes Activos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🌀</div>
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Monitoreo Continuo</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🛰️</div>
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Satélites</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">🌍</div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Cobertura Total</div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <a href="#mapa" class="btn btn-primary">
+                        <i class="fas fa-map-marked-alt"></i> Explorar Mapa Interactivo
+                    </a>
+                    <a href="#alertas" class="btn btn-secondary">
+                        <i class="fas fa-bell"></i> Ver Alertas Activas
+                    </a>
+                    <a href="#nubi" class="btn btn-tertiary">
+                        <i class="fas fa-robot"></i> Hablar con Nubi
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMERGENCY ACTIONS -->
+        <section class="emergency-section">
+            <div class="container">
+                <h2 class="section-title">Acciones de Emergencia</h2>
+                <p class="section-description">
+                    Contactos de emergencia y recursos inmediatos para situaciones críticas
+                </p>
+
+                <div class="emergency-actions">
+                    <div class="emergency-action" onclick="showEmergencyInfo('conred')">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>CONRED</span>
+                        <small>1566 - Emergencias</small>
+                    </div>
+                    <div class="emergency-action" onclick="showEmergencyInfo('bomberos')">
+                        <i class="fas fa-fire-extinguisher"></i>
+                        <span>Bomberos</span>
+                        <small>122/123 - Incendios</small>
+                    </div>
+                    <div class="emergency-action" onclick="showEmergencyInfo('policia')">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Policía</span>
+                        <small>110 - Seguridad</small>
+                    </div>
+                    <div class="emergency-action" onclick="showEmergencyInfo('cruz-roja')">
+                        <i class="fas fa-plus-square"></i>
+                        <span>Cruz Roja</span>
+                        <small>125 - Ambulancias</small>
+                    </div>
+                    <div class="emergency-action" onclick="openReportModal()">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Reportar</span>
+                        <small>Incidente actual</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOTIFICATIONS PANEL -->
+        <section id="notificaciones" class="notifications-section">
+            <div class="container">
+                <div class="notifications-panel">
+                    <div class="notifications-header">
+                        <div class="notifications-title">
+                            <i class="fas fa-bell"></i>
+                            Notificaciones del Dispositivo
+                        </div>
+                        <div class="notification-status">
+                            <span id="notificationStatusText">Desactivadas</span>
+                            <span class="notification-dot notification-disabled" id="notificationStatusDot"></span>
+                        </div>
+                    </div>
+
+                    <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                        Active las notificaciones para recibir alertas críticas directamente en su dispositivo, incluso cuando no esté en la página.
+                    </p>
+
+                    <div class="notification-options">
+                        <div class="notification-option active" onclick="toggleNotificationOption(this, 'critical')">
+                            <i class="fas fa-exclamation-circle" style="color: var(--critical);"></i>
+                            <span>Alertas Críticas</span>
+                        </div>
+                        <div class="notification-option active" onclick="toggleNotificationOption(this, 'high')">
+                            <i class="fas fa-exclamation-triangle" style="color: var(--high);"></i>
+                            <span>Alto Riesgo</span>
+                        </div>
+                        <div class="notification-option" onclick="toggleNotificationOption(this, 'earthquake')">
+                            <i class="fas fa-bolt" style="color: var(--earthquake);"></i>
+                            <span>Sismos</span>
+                        </div>
+                        <div class="notification-option" onclick="toggleNotificationOption(this, 'volcano')">
+                            <i class="fas fa-mountain" style="color: var(--volcano);"></i>
+                            <span>Volcanes</span>
+                        </div>
+                    </div>
+
+                    <button class="test-notification-btn" onclick="testDeviceNotification()">
+                        <i class="fas fa-bell"></i> Probar Notificación
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTROLS SECTION -->
+        <section class="controls-section">
+            <div class="container">
+                <div class="controls">
+                    <button id="startMonitoring" onclick="startMonitoring()">
+                        <i class="fas fa-play"></i> Iniciar Monitoreo
+                    </button>
+                    <button id="stopMonitoring" onclick="stopMonitoring()" disabled>
+                        <i class="fas fa-stop"></i> Detener
+                    </button>
+                    <button onclick="refreshData()">
+                        <i class="fas fa-sync-alt loading-fast"></i> Actualizar Ahora
+                    </button>
+                    <button onclick="requestNotificationPermission()">
+                        <i class="fas fa-bell"></i> Activar Notificaciones
+                    </button>
+                    <button class="btn-admin" onclick="toggleAdminPanel()">
+                        <i class="fas fa-cog"></i> Panel Admin
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN PANEL -->
+        <section id="admin" class="admin-section">
+            <div class="container">
+                <div class="admin-panel" id="adminPanel" style="display: none;">
+                    <div class="admin-header">
+                        <div class="admin-title">
+                            <i class="fas fa-cogs"></i>
+                            Panel de Administración
+                        </div>
+                        <button class="btn-critical" onclick="simulateCriticalEvent()">
+                            <i class="fas fa-bolt"></i> Simular Crítico
+                        </button>
+                    </div>
+
+                    <div class="admin-grid">
+                        <div class="admin-metric">
+                            <div class="metric-value" id="adminTotalAlerts">0</div>
+                            <div class="metric-label">Alertas Totales</div>
+                            <div class="metric-change trend-up">+12% hoy</div>
+                        </div>
+                        <div class="admin-metric">
+                            <div class="metric-value" id="adminResponseTime">0s</div>
+                            <div class="metric-label">Tiempo Respuesta</div>
+                            <div class="metric-change trend-down">-5% mejor</div>
+                        </div>
+                        <div class="admin-metric">
+                            <div class="metric-value" id="adminResources">8</div>
+                            <div class="metric-label">Recursos Activos</div>
+                            <div class="metric-change trend-up">+2 nuevos</div>
+                        </div>
+                        <div class="admin-metric">
+                            <div class="metric-value" id="adminReports">12</div>
+                            <div class="metric-label">Reportes Ciudadanos</div>
+                            <div class="metric-change trend-up">+3 pendientes</div>
+                        </div>
+                    </div>
+
+                    <div class="admin-actions">
+                        <button class="admin-btn" onclick="generateReport()">
+                            <i class="fas fa-chart-bar"></i> Generar Reporte
+                        </button>
+                        <button class="admin-btn" onclick="exportData()">
+                            <i class="fas fa-download"></i> Exportar Datos
+                        </button>
+                        <button class="admin-btn critical" onclick="sendMassAlert()">
+                            <i class="fas fa-broadcast-tower"></i> Alerta Masiva
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTERS SECTION -->
+        <section class="filters-section">
+            <div class="container">
+                <div class="filters">
+                    <div class="filter-group">
+                        <label><input type="checkbox" id="filterEarthquakes" checked onchange="applyFilters()"> <i class="fas fa-bolt" style="color: var(--earthquake);"></i> Sismos</label>
+                        <label><input type="checkbox" id="filterVolcanoes" checked onchange="applyFilters()"> <i class="fas fa-mountain" style="color: var(--volcano);"></i> Volcanes</label>
+                        <label><input type="checkbox" id="filterFloods" checked onchange="applyFilters()"> <i class="fas fa-house-flood-water" style="color: var(--flood);"></i> Inundaciones</label>
+                        <label><input type="checkbox" id="filterLandslides" checked onchange="applyFilters()"> <i class="fas fa-mountain" style="color: var(--landslide);"></i> Deslizamientos</label>
+                    </div>
+                    <div class="filter-group">
+                        <select id="severityFilter" onchange="applyFilters()">
+                            <option value="all">Todos los niveles</option>
+                            <option value="critical">Solo críticos</option>
+                            <option value="high">Alto y crítico</option>
+                        </select>
+                        <select id="timeFilter" onchange="applyFilters()">
+                            <option value="1">Última hora</option>
+                            <option value="6">Últimas 6 horas</option>
+                            <option value="24" selected>Últimas 24 horas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS PANEL -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-panel">
+                    <div class="stat-card critical">
+                        <div class="stat-number" id="criticalAlerts">0</div>
+                        <div class="stat-label">Alertas Críticas</div>
+                        <div class="stat-trend trend-up">Activas ahora</div>
+                    </div>
+                    <div class="stat-card high">
+                        <div class="stat-number" id="highRiskAlerts">0</div>
+                        <div class="stat-label">Alto Riesgo</div>
+                        <div class="stat-trend">Monitoreando</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalAlerts">0</div>
+                        <div class="stat-label">Alertas Totales</div>
+                        <div class="stat-trend trend-up">+5 hoy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="responseTime">0.8s</div>
+                        <div class="stat-label">Tiempo Respuesta</div>
+                        <div class="stat-trend trend-down">Óptimo</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAPA SECTION -->
+        <section id="mapa" class="section">
+            <div class="container">
+                <h2 class="section-title">Mapa Interactivo de Monitoreo</h2>
+                <p class="section-description">
+                    Visualiza en tiempo real la actividad volcánica, áreas de riesgo de inundaciones
+                    y fenómenos meteorológicos en Guatemala.
+                </p>
+                <div class="map-container">
+                    <div id="guatemalaMap"></div>
+                    <div class="map-overlay">
+                        <div class="map-title">Leyenda de Alertas</div>
+                        <div class="legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: var(--critical);"></div>
+                                <span class="legend-text">Crítico</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: var(--high);"></div>
+                                <span class="legend-text">Alto Riesgo</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: var(--volcano);"></div>
+                                <span class="legend-text">Volcanes</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: var(--earthquake);"></div>
+                                <span class="legend-text">Sismos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map-controls">
+                        <button class="map-btn" onclick="zoomToGuatemala()">
+                            <i class="fas fa-search-location"></i> Vista General
+                        </button>
+                        <button class="map-btn" onclick="clearMarkers()">
+                            <i class="fas fa-trash"></i> Limpiar
+                        </button>
+                        <button class="map-btn" onclick="toggleRiskLayers()">
+                            <i class="fas fa-layer-group"></i> Capas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALERTAS DASHBOARD -->
+        <section id="alertas" class="section">
+            <div class="container">
+                <h2 class="section-title">Panel de Alertas en Tiempo Real</h2>
+                <p class="section-description">
+                    Monitoreo continuo de eventos sísmicos, volcánicos y meteorológicos
+                </p>
+
+                <div class="dashboard">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-mountain card-icon" style="color: var(--volcano);"></i>
+                                <h2 class="card-title">Volcanes Activos</h2>
+                            </div>
+                            <div class="card-badge" id="volcanoBadge">2</div>
+                        </div>
+                        <div class="card-content">
+                            <ul class="event-list" id="volcanoList">
+                                <li class="event-item event-volcano critical">
+                                    <span class="status-indicator status-warning"></span>
+                                    Volcán de Fuego - Actividad alta
+                                    <span class="event-details">Nivel naranja | Última erupción: 2h</span>
+                                    <span class="event-time">15:30</span>
+                                </li>
+                                <li class="event-item event-volcano high">
+                                    <span class="status-indicator status-warning"></span>
+                                    Volcán Pacaya - Actividad moderada
+                                    <span class="event-details">Nivel amarillo | Monitoreo constante</span>
+                                    <span class="event-time">14:15</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-bolt card-icon" style="color: var(--earthquake);"></i>
+                                <h2 class="card-title">Actividad Sísmica</h2>
+                            </div>
+                            <div class="card-badge" id="earthquakeBadge">0</div>
+                        </div>
+                        <div class="card-content">
+                            <ul class="event-list" id="earthquakeList">
+                                <li class="event-item event-earthquake">
+                                    <span class="loading loading-fast"></span> Escaneando en tiempo real...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-house-flood-water card-icon" style="color: var(--flood);"></i>
+                                <h2 class="card-title">Inundaciones</h2>
+                            </div>
+                            <div class="card-badge" id="floodBadge">0</div>
+                        </div>
+                        <div class="card-content">
+                            <ul class="event-list" id="floodList">
+                                <li class="event-item event-flood">
+                                    <span class="loading loading-fast"></span> Monitoreo hidrometeorológico...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-mountain card-icon" style="color: var(--landslide);"></i>
+                                <h2 class="card-title">Deslizamientos</h2>
+                            </div>
+                            <div class="card-badge" id="landslideBadge">0</div>
+                        </div>
+                        <div class="card-content">
+                            <ul class="event-list" id="landslideList">
+                                <li class="event-item event-landslide">
+                                    <span class="loading loading-fast"></span> Analizando estabilidad...
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-history card-icon"></i>
+                                <h2 class="card-title">Historial Reciente</h2>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="timeline" id="alertTimeline">
+                                <div class="timeline-item event-volcano critical">
+                                    <span>Alerta Volcán de Fuego</span>
+                                    <span class="timeline-time">Hace 2h</span>
+                                </div>
+                                <div class="timeline-item event-earthquake">
+                                    <span>Sismo M 4.2 San Marcos</span>
+                                    <span class="timeline-time">Hace 4h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title-group">
+                                <i class="fas fa-chart-line card-icon" style="color: var(--admin);"></i>
+                                <h2 class="card-title">Métricas del Sistema</h2>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="admin-metric" style="background: none; padding: 10px 0;">
+                                <div class="metric-value">99.8%</div>
+                                <div class="metric-label">Disponibilidad</div>
+                            </div>
+                            <div class="admin-metric" style="background: none; padding: 10px 0;">
+                                <div class="metric-value">0.8s</div>
+                                <div class="metric-label">Latencia API</div>
+                            </div>
+                            <div class="admin-metric" style="background: none; padding: 10px 0;">
+                                <div class="metric-value">256</div>
+                                <div class="metric-label">Alertas Hoy</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INFORMACIÓN EDUCATIVA -->
+        <section id="aprende" class="section">
+            <div class="container">
+                <h2 class="section-title">Aprende sobre Desastres Naturales</h2>
+                <p class="section-description">
+                    Conoce cómo prepararte y responder ante diferentes desastres naturales en Guatemala
+                </p>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-water"></i></div>
+                        <h3>Prevención de Inundaciones</h3>
+                        <p>Aprende a identificar zonas de riesgo, crear planes de evacuación y proteger tu hogar contra inundaciones.</p>
+                        <a href="#prevencion-inundaciones" class="btn btn-outline">Saber más</a>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-mountain"></i></div>
+                        <h3>Protocolos Volcánicos</h3>
+                        <p>Conoce las señales de alerta volcánica, rutas de evacuación y medidas de protección durante erupciones.</p>
+                        <a href="#protocolos-volcanicos" class="btn btn-outline">Saber más</a>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fas fa-hurricane"></i></div>
+                        <h3>Preparación para Huracanes</h3>
+                        <p>Preparación de kits de emergencia, refugios seguros y protocolos durante la temporada de huracanes.</p>
+                        <a href="#preparacion-huracanes" class="btn btn-outline">Saber más</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETALLES DE TEMAS EDUCATIVOS -->
+        <section id="prevencion-inundaciones" class="section topic-detail">
+            <div class="container">
+                <h2 class="section-title">Prevención de Inundaciones</h2>
+                <div class="topic-content">
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1599058917765-780d56d1d2b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Prevención de inundaciones">
+                    </div>
+                    <div class="topic-text">
+                        <h3>¿Cómo prepararse para inundaciones?</h3>
+                        <ul>
+                            <li>Identifica si vives en zona de riesgo de inundación</li>
+                            <li>Prepara un kit de emergencia con documentos importantes</li>
+                            <li>Conoce las rutas de evacuación y refugios más cercanos</li>
+                            <li>Mantén limpias las alcantarillas y desagües</li>
+                            <li>Instala sistemas de alerta temprana en tu comunidad</li>
+                        </ul>
+
+                        <h3>Durante una inundación:</h3>
+                        <ul>
+                            <li>Evita cruzar ríos o zonas inundadas</li>
+                            <li>Desconecta la energía eléctrica</li>
+                            <li>Sube a lugares elevados</li>
+                            <li>Mantente informado por medios oficiales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="protocolos-volcanicos" class="section topic-detail">
+            <div class="container">
+                <h2 class="section-title">Protocolos Volcánicos</h2>
+                <div class="topic-content">
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1602276506752-5b7d3e9c4f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Protocolos volcánicos">
+                    </div>
+                    <div class="topic-text">
+                        <h3>Volcanes activos de Guatemala:</h3>
+                        <ul>
+                            <li><strong>Volcán de Fuego:</strong> Actividad constante, zona de alto riesgo</li>
+                            <li><strong>Volcán Pacaya:</strong> Erupciones regulares de lava</li>
+                            <li><strong>Volcán Santiaguito:</strong> Actividad constante de domos</li>
+                        </ul>
+
+                        <h3>Señales de alerta:</h3>
+                        <ul>
+                            <li>Aumento en la emisión de ceniza</li>
+                            <li>Tremores y sismos volcánicos</li>
+                            <li>Cambios en la actividad fumarólica</li>
+                            <li>Lahares (flujos de lodo) durante lluvias</li>
+                        </ul>
+
+                        <h3>Medidas de protección:</h3>
+                        <ul>
+                            <li>Evita zonas de exclusión establecidas</li>
+                            <li>Protege vías respiratorias con mascarillas</li>
+                            <li>Cubre depósitos de agua y alimentos</li>
+                            <li>Ten siempre un plan de evacuación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="preparacion-huracanes" class="section topic-detail">
+            <div class="container">
+                <h2 class="section-title">Preparación para Huracanes</h2>
+                <div class="topic-content">
+                    <div class="topic-image">
+                        <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Preparación para huracanes">
+                    </div>
+                    <div class="topic-text">
+                        <h3>Temporada de huracanes en Guatemala:</h3>
+                        <p>La temporada oficial es de junio a noviembre, con mayor actividad entre agosto y octubre.</p>
+
+                        <h3>Kit de emergencia básico:</h3>
+                        <ul>
+                            <li>Agua potable (4 litros por persona por día)</li>
+                            <li>Alimentos no perecederos para 3 días</li>
+                            <li>Botiquín de primeros auxilios</li>
+                            <li>Radio portátil con pilas</li>
+                            <li>Linternas y baterías extras</li>
+                            <li>Documentos importantes en bolsa impermeable</li>
+                        </ul>
+
+                        <h3>Antes del huracán:</h3>
+                        <ul>
+                            <li>Protege ventanas con madera o cinta</li>
+                            <li>Recoge objetos del patio que puedan volar</li>
+                            <li>Llena el tanque de gasolina de tu vehículo</li>
+                            <li>Ten efectivo disponible</li>
+                            <li>Identifica el refugio más cercano</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISIONES SECTION -->
+        <section id="desafios" class="section">
+            <div class="container">
+                <h2 class="section-title">Misiones Educativas</h2>
+                <div class="missions-grid">
+                    <div class="mission-card">
+                        <div class="mission-icon"><i class="fas fa-volcano"></i></div>
+                        <h3>Misión Volcánica</h3>
+                        <p>Aprende sobre los volcanes de Guatemala y cómo se monitorea su actividad.</p>
+                        <a href="#protocolos-volcanicos" class="btn btn-outline">Comenzar</a>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon"><i class="fas fa-water"></i></div>
+                        <h3>Misión Inundaciones</h3>
+                        <p>Descubre cómo predecir y prepararse para inundaciones en tu comunidad.</p>
+                        <a href="#prevencion-inundaciones" class="btn btn-outline">Comenzar</a>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-icon"><i class="fas fa-wind"></i></div>
+                        <h3>Misión Huracanes</h3>
+                        <p>Entiende la formación y trayectoria de huracanes en el Caribe.</p>
+                        <a href="#preparacion-huracanes" class="btn btn-outline">Comenzar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPO SECTION -->
+        <section id="equipo" class="section">
+            <div class="container">
+                <h2 class="section-title">Nuestro Equipo</h2>
+                <div class="team-content">
+                    <p>Equipo INTECAP - NASA Space Apps Challenge 2025</p>
+                    <p>Desarrolladores, científicos de datos y especialistas en gestión de riesgos trabajando juntos para proteger Guatemala.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LAST UPDATE -->
+        <section class="update-section">
+            <div class="container">
+                <div class="last-update" id="lastUpdate">
+                    <i class="fas fa-clock"></i> Última actualización: <span id="updateTime">Cargando...</span>
+                    <span style="margin-left: 20px; color: var(--safe);">
+              <i class="fas fa-bolt"></i> Sistema rápido activado
+            </span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Natural Alert</h3>
+                    <p>Monitoreo satelital para la prevención de desastres naturales en Guatemala.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#mapa">Mapa Interactivo</a></li>
+                        <li><a href="#alertas">Alertas</a></li>
+                        <li><a href="#aprende">Aprende</a></li>
+                        <li><a href="#desafios">Misiones</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contactos de Emergencia</h3>
+                    <p>CONRED: 1566<br>Bomberos: 122/123<br>Policía: 110<br>Cruz Roja: 125</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Créditos</h3>
+                    <p>NASA Space Apps · INTECAP · Equipo Natural Alert</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Natural Alert. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- ELEMENTOS FLOTANTES -->
+<!-- Chatbot -->
+<button id="chat-toggle" class="chat-toggle-btn" aria-label="Abrir chat">
+    <i class="fas fa-robot"></i>
+</button>
+
+<div id="chat-container" class="chat-container">
+    <div class="chat-header">
+        <div class="chat-title">
+            <i class="fas fa-robot"></i>
+            <span>Asistente Nubi</span>
+        </div>
+        <div class="chat-weather">
+            <i class="fas fa-cloud"></i>
+            <span id="chat-weather-text">Cargando clima...</span>
+        </div>
+    </div>
+
+    <div class="chat-messages" id="chat-messages">
+        <!--<div class="message bot-message">
+            ¡Hola! Soy Nubi, tu asistente de Natural Alert. ¿En qué puedo ayudarte hoy?
+        </div> -->
+    </div>
+
+    <div class="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." aria-label="Mensaje de chat">
+        <button id="send-message" aria-label="Enviar mensaje">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Report Modal -->
+<div class="modal" id="reportModal">
+    <div class="modal-content">
+        <span class="close" onclick="closeReportModal()">&times;</span>
+        <h3><i class="fas fa-exclamation-circle"></i> Reportar Incidente</h3>
+        <form id="reportForm">
+            <select id="incidentType" required>
+                <option value="">Tipo de incidente</option>
+                <option value="earthquake">Sismo/Temblor</option>
+                <option value="flood">Inundación</option>
+                <option value="landslide">Deslizamiento/Derrumbe</option>
+                <option value="volcano">Actividad Volcánica</option>
+                <option value="fire">Incendio Forestal</option>
+                <option value="other">Otro</option>
+            </select>
+            <input type="text" id="location" placeholder="📍 Ubicación aproximada (ej: Zona 1, Ciudad)" required>
+            <textarea id="description" placeholder="📝 Describe el incidente (qué pasó, cuándo, intensidad...)" required></textarea>
+            <button type="submit">
+                <i class="fas fa-paper-plane"></i> Enviar Reporte de Emergencia
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="js/functions.js"></script>
+</body>
+</html>

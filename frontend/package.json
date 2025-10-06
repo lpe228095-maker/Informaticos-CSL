@@ -1,0 +1,8 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Sitio web estático de ejemplo para el proyecto, con HTML, CSS, JS e incluir recursos descargables como PDFs e imágenes.",
+  "author": "SMOPS Inc.",
+  "license": "ISC",
+  "type": "module"
+}

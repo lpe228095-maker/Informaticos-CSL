@@ -1,0 +1,84 @@
+version: "3.9"
+
+########################################
+# Frontend & Backend
+########################################
+services:
+  frontend:
+    build: ./frontend
+    container_name: project_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: project_backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - REDIS_DOCUMENT_INDEX=documentos
+      - REDIS_DOCUMENT_KNN=2
+    depends_on:
+      - redis
+    restart: unless-stopped
+
+  ########################################
+  # Database (Redis Stack para Backend)
+  ########################################
+  redis:
+    image: redis/redis-stack:latest
+    container_name: project_redis
+    ports:
+      - "6379:6379"
+      - "8001:8001"   # RedisInsight opcional en http://localhost:8001
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  ########################################
+  # N8N + Supabase (Opcionales)
+  ########################################
+  # n8n:
+  #   image: n8nio/n8n:latest
+  #   container_name: project_n8n
+  #   ports:
+  #     - "5678:5678"
+  #   environment:
+  #     - GENERIC_TIMEZONE=America/Guatemala
+  #     - TZ=America/Guatemala
+  #     - N8N_BASIC_AUTH_ACTIVE=true
+  #     - N8N_BASIC_AUTH_USER=alumno
+  #     - N8N_BASIC_AUTH_PASSWORD=clave123
+  #   volumes:
+  #     - ./n8n_data:/home/node/.n8n
+  #   restart: unless-stopped
+
+  # supabase:
+  #   image: supabase/local:latest
+  #   container_name: project_supabase
+  #   ports:
+  #     - "54321:54321"  # API REST
+  #     - "54322:54322"  # Postgres
+  #   environment:
+  #     - SUPABASE_DB_PASSWORD=supersecret
+  #     - SUPABASE_ANON_KEY=anon-key-123
+  #     - SUPABASE_SERVICE_ROLE_KEY=service-role-key-456
+  #   volumes:
+  #     - supabase_data:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+volumes:
+  redis_data:
+  # n8n_data:
+  # supabase_data:

@@ -1,0 +1,71 @@
+##############################
+# Dependencias de Node.js
+##############################
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+##############################
+# Archivos de build / caché
+##############################
+dist/
+build/
+.cache/
+.tmp/
+
+##############################
+# Archivos de Docker
+##############################
+*.pid
+*.seed
+*.pid.lock
+.docker/
+docker-compose.override.yml
+
+##############################
+# Logs de la aplicación
+##############################
+logs/
+*.log
+*.out
+*.err
+
+##############################
+# Variables de entorno
+##############################
+.env
+.env.*
+*.local
+
+##############################
+# Archivos del sistema operativo y editores
+##############################
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+##############################
+# Seguridad
+##############################
+security/*
+!security/info.md
+*.pem
+*.key
+*.crt
+*.p12
+*.cert
+
+##############################
+# Pruebas / Coverage
+##############################
+coverage/
+.nyc_output/
+.jest/
